@@ -1,14 +1,14 @@
 <template>
   <div class="center-screen">
     <div class="mb-5 text-center">
-      <h2>ผู้เล่นคนปัจจุบัน : {{ resolveDisplay(player) }}</h2>
+      <h2>Current player : {{ resolveDisplay(player) }}</h2>
     </div>
     <div v-for="(item_y, index_y) in board" :key="index_y" class="game-table">
       <b-row>
         <b-col
           v-for="(item_x, index_x) in item_y"
           :key="index_x"
-          :class="`border text-center game-table-grid ${!item_x && !playerWinner ? 'cursor-pointer' : ''} ${styleCaseWinner(index_y, index_x)}` "
+          :class="`border text-center game-table-grid ${!item_x && !boardState ? 'cursor-pointer' : ''} ${styleCaseWinner(index_y, index_x)}` "
           @click="clickSelect(index_y, index_x)"
         >
           <div style="margin: auto;">
@@ -18,7 +18,7 @@
       </b-row>
     </div>
     <div class="mt-5 text-center">
-      <h5>X ชนะแล้ว {{ xWinner }} ครั้ง, O ชนะแล้ว {{ oWinner }} ครั้ง, เสมอ {{ bothDraw }} ครั้ง</h5>
+      <h5>X win {{ xWinner }}, O win {{ oWinner }}, draw {{ bothDraw }}</h5>
     </div>
     <div class="mt-3 text-center">
       <b-button
@@ -26,7 +26,7 @@
         size="lg"
         @click="resetBoard"
       >
-        เริ่มใหม่อีกครั้ง
+        Restart
       </b-button>
     </div>
   </div>
@@ -63,6 +63,12 @@ export default {
   computed: {
     turnRemain() {
       return this.board.flat().filter(x => x === 0).length
+    },
+
+    boardState() {
+      if(this.playerWinner) return this.playerWinner === 1 ? 'X Win' : 'O Win'
+      if(!this.turnRemain) return 'Draw'
+      return null
     }
   },
 
@@ -76,7 +82,7 @@ export default {
         if (getResult)
         {
           this.playerWinner = this.player
-          this.$swal(`ผู้เล่น ${this.resolveDisplay(this.playerWinner)} ชนะ`);
+          this.$swal(this.boardState);
           if (this.player == 1) this.xWinner += 1
           else this.oWinner += 1
         }
@@ -85,7 +91,7 @@ export default {
           if(!this.turnRemain)
           {
             this.bothDraw += 1
-            this.$swal(`เสมอ ไม่มีผู้ชนะ`);
+            this.$swal(this.boardState);
           }
           else this.player = this.player === 1 ? 2 : 1
         }
