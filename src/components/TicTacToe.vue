@@ -66,15 +66,15 @@ export default {
     },
 
     boardState() {
-      if(this.playerWinner) return this.playerWinner === 1 ? 'X Win' : 'O Win'
-      if(!this.turnRemain) return 'Draw'
+      if (this.playerWinner) return this.playerWinner === 1 ? 'X Win' : 'O Win'
+      if (!this.turnRemain) return 'Draw'
       return null
     }
   },
 
   methods: {
     clickSelect(y, x) {
-      if(!this.board[y][x] && !this.playerWinner)
+      if (!this.board[y][x] && !this.playerWinner)
       {
         this.$set(this.board[y], x, this.player)
 
@@ -88,7 +88,7 @@ export default {
         }
         else
         {
-          if(!this.turnRemain)
+          if (!this.turnRemain)
           {
             this.bothDraw += 1
             this.$swal(this.boardState);
@@ -137,22 +137,22 @@ export default {
     },
 
     styleCaseWinner(y, x) {
-      if(y === 0) {
-        if(x === 0) return this.caseWinner === 1 || this.caseWinner === 2 || this.caseWinner === 3 ? 'highlight-winner' : ''
-        if(x === 1) return this.caseWinner === 1 || this.caseWinner === 4 ? 'highlight-winner' : ''
-        if(x === 2) return this.caseWinner === 1 || this.caseWinner === 5 || this.caseWinner === 8 ? 'highlight-winner' : ''
+      if (y === 0) {
+        if (x === 0) return this.caseWinner === 1 || this.caseWinner === 2 || this.caseWinner === 3 ? 'highlight-winner' : ''
+        if (x === 1) return this.caseWinner === 1 || this.caseWinner === 4 ? 'highlight-winner' : ''
+        if (x === 2) return this.caseWinner === 1 || this.caseWinner === 5 || this.caseWinner === 8 ? 'highlight-winner' : ''
       }
 
-      if(y === 1) {
-        if(x === 0) return this.caseWinner === 2 || this.caseWinner === 6 ? 'highlight-winner' : ''
-        if(x === 1) return this.caseWinner === 3 || this.caseWinner === 4 || this.caseWinner === 6 || this.caseWinner === 8  ? 'highlight-winner' : ''
-        if(x === 2) return this.caseWinner === 5 || this.caseWinner === 6 ? 'highlight-winner' : ''
+      if (y === 1) {
+        if (x === 0) return this.caseWinner === 2 || this.caseWinner === 6 ? 'highlight-winner' : ''
+        if (x === 1) return this.caseWinner === 3 || this.caseWinner === 4 || this.caseWinner === 6 || this.caseWinner === 8  ? 'highlight-winner' : ''
+        if (x === 2) return this.caseWinner === 5 || this.caseWinner === 6 ? 'highlight-winner' : ''
       }
 
-      if(y === 2) {
-        if(x === 0) return this.caseWinner === 2 || this.caseWinner === 7 || this.caseWinner === 8 ? 'highlight-winner' : ''
-        if(x === 1) return this.caseWinner === 4 || this.caseWinner === 7 ? 'highlight-winner' : ''
-        if(x === 2) return this.caseWinner === 3 || this.caseWinner === 5 || this.caseWinner === 7 ? 'highlight-winner' : ''
+      if (y === 2) {
+        if (x === 0) return this.caseWinner === 2 || this.caseWinner === 7 || this.caseWinner === 8 ? 'highlight-winner' : ''
+        if (x === 1) return this.caseWinner === 4 || this.caseWinner === 7 ? 'highlight-winner' : ''
+        if (x === 2) return this.caseWinner === 3 || this.caseWinner === 5 || this.caseWinner === 7 ? 'highlight-winner' : ''
       }
     }
   },
